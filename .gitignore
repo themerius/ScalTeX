@@ -1,0 +1,12 @@
+*.DS_Store
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Scala
+DSL/project/*
+DSL/target/*
+DSL/_output/*
