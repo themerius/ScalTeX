@@ -8,21 +8,30 @@ describe("Entity", function() {
     tmpl.innerHTML = "<div style=\"height: {{height}}px\">With {{{variable}}}</div>";
     document.body.appendChild(tmpl);
 
+    tmplSplit = document.createElement("script");
+    tmplSplit.id = "template_split";
+    tmplSplit.innerHTML = "<div style=\"width: 50px\">{{{variable}}}</div>";
+    document.body.appendChild(tmplSplit);
+
     anotherElement = document.createElement("div");
     anotherElement.id = "anotherElement";
     document.body.appendChild(anotherElement);
 
     json0 = {id: 0, variable: "foo", height: 200};
-    json1 = {id: 1, variable: "foo<em>bar</bar>", height: 250};
+    json1 = {id: 1, variable: "foo<em>bar</em>", height: 250};
+    json2 = {id: 2, variable: "words are splitted by <em>space</em> seperator.",
+             splitable: true, splitVar: "variable"};
 
     ety_empty = new scaltex.Entity();
     ety_withTemplate = new scaltex.Entity("template");
     ety0 = new scaltex.Entity("template", json0);
     ety1 = new scaltex.Entity("template", json1);
+    ety2 = new scaltex.Entity("template_split", json2);
   });
 
   afterEach(function() {
     document.body.removeChild(tmpl);
+    document.body.removeChild(tmplSplit);
     document.body.removeChild(anotherElement);
   });
 
@@ -82,6 +91,29 @@ describe("Entity", function() {
       .toEqual(
         "<div id=\"Entity_0\">" +
         "<div style=\"height: 200px\">With foobar</div></div>");
+  });
+
+  it("should know an split algorithm, if it's splitable", function() {
+    expect(ety0.splitable).toEqual(false);
+    expect(ety1.splitable).toEqual(false);
+    expect(ety2.splitable).toEqual(true);
+
+    ety2.render();
+    ety2.appendTo("anotherElement");
+    var height = ety2.height();
+    var listOfSplitted = ety2.splitAlgorithm(actualHeight=height,splitToHeight=height/2);
+
+    listOfSplitted[0].render();
+    listOfSplitted[0].appendTo("anotherElement");
+    expect(listOfSplitted[0].height()).toBeCloseTo(height/2);
+    expect(listOfSplitted[0].json).toEqual({
+      id: "2a", variable: "words are splitted", splitable: true, splitVar: "variable"});
+
+    listOfSplitted[1].render();
+    listOfSplitted[1].appendTo("anotherElement");
+    expect(listOfSplitted[1].height()).toBeCloseTo(height/2);
+    expect(listOfSplitted[1].json).toEqual({
+      id: "2b", variable: "by <em>space</em> seperator.", splitable: true, splitVar: "variable"});
   });
 
 });

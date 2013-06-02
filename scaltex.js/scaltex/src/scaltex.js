@@ -3,7 +3,7 @@
  */
 var scaltex = {};
 
-scaltex.__version__ = "0.2dev";
+scaltex.__version__ = "0.3dev";
 
 /**
  * class: Util (singleton)
@@ -56,6 +56,10 @@ scaltex.Entity = function (templateId, json) {
   this.json = json;
   this.element = document.createElement("div");
   this.requiredPageAppendPoint = "content";
+  if (json) {
+    this.splitable = (json.splitable == undefined) ? false : json.splitable;
+    this.splitVar = json.splitVar;
+  }
 }
 
 scaltex.Entity.prototype.render = function () {
@@ -81,6 +85,23 @@ scaltex.Entity.prototype.modifyJSON = function (jsonDiff) {
   }
   return this;
 }
+
+scaltex.Entity.prototype.splitAlgorithm = function (actualHeight, splitToHeight) {
+  if (this.splitable) {
+    var diffInPercent = splitToHeight / actualHeight;
+    var content = this.json[this.splitVar].split(" ");
+    var splitAtIdx = Math.floor(content.length * diffInPercent);
+    var json0 = (new scaltex.Util()).copyJSON(this.json);
+    var json1 = (new scaltex.Util()).copyJSON(this.json);
+    json0[this.splitVar] = content.slice(0, splitAtIdx).join(" ");
+    json0.id = this.json.id + "a";
+    json1[this.splitVar] = content.slice(splitAtIdx, undefined).join(" ");
+    json1.id = this.json.id + "b";
+    return [new scaltex.Entity(this.type, json0),
+            new scaltex.Entity(this.type, json1)];
+  }
+  return [this];
+};
 
 /**
  * class: Page
