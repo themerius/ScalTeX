@@ -309,8 +309,27 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
 
       var noPage = !currentPageType;
       var falsePage = currentPageType != pageType;
-      var notEnoughSpace = (actualPage == undefined) ? true : actualPage.availableSpace[appendPoint] < entity.height();
+      var notEnoughSpace = (actualPage == undefined) ? false : actualPage.availableSpace[appendPoint] < entity.height();
       var newPageCondition = noPage || pagebreak || falsePage || notEnoughSpace;
+
+      if (notEnoughSpace) {
+        var splitToHeight = actualPage.availableSpace[appendPoint];
+        if (splitToHeight > 0) {
+          var actualHeight = entity.height();
+          var splittedEntities = entity.splitAlgorithm(actualHeight, splitToHeight);
+          // append first entity to the actual page
+          constructionAreaAppendPoint = this.constructionAreas[pageType].appendPoints[appendPoint];
+          splittedEntities[0].render();
+          splittedEntities[0].appendTo(constructionAreaAppendPoint);
+          actualPage.fill(appendPoint, splittedEntities[0].height());
+          appPoint0 = actualPage.appendPoints[appendPoint];
+          splittedEntities[0].appendTo(appPoint0);
+          // append second entity to a new page
+          splittedEntities[1].render();
+          splittedEntities[1].appendTo(constructionAreaAppendPoint);
+          entity = splittedEntities[1];
+        }
+      }
 
       if (newPageCondition) {
         var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};
@@ -324,6 +343,7 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
       actualPage.fill(appendPoint, entity.height());
       appendPoint = actualPage.appendPoints[appendPoint];
       entity.appendTo(appendPoint);
+
     }
   }
   return this;
