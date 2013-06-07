@@ -144,8 +144,9 @@ trait Builder extends TemplateStock {
   val allPages: List[Page]
   def addToList (a: Areal) = companion.add(a)
 
-  def generateJsEntityInstances: String =
+  def generateJsEntityInstances: String = {
     (for (areal <- companion.get) yield (new Generator(areal)).generate).mkString("")
+  }
 
   def generateJsPageFactory: String = {
     var ret = "var pageFactory = new scaltex.PageFactory({"

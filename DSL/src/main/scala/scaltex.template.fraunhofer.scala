@@ -12,13 +12,13 @@ trait FraunhoferReportTemplate extends TemplateStock {
     <head>
     <meta charset="utf-8" />
     <title>$title</title>
-    <link rel="stylesheet" href="http://scaltex.4pple.de/academic_article_fraunhofer/css/reset.css" />
-    <link rel="stylesheet" href="http://scaltex.4pple.de/academic_article_fraunhofer/css/typo.css" />
-    <link rel="stylesheet" href="http://scaltex.4pple.de/academic_article_fraunhofer/css/grid.css" />
-    <link rel="stylesheet" href="http://scaltex.4pple.de/academic_article_fraunhofer/css/titlepage.css" />
-    <link rel="stylesheet" href="http://scaltex.4pple.de/academic_article_fraunhofer/css/toc.css" />
-    <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
-    <script src="https://raw.github.com/themerius/ScalTeX-templates/master/scaltex/src/scaltex.js"></script>
+    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/reset.css" />
+    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/typo.css" />
+    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/grid.css" />
+    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/titlepage.css" />
+    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/toc.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script src="../../scaltex.js/scaltex/src/scaltex.js"></script>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
