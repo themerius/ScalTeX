@@ -90,6 +90,18 @@ trait EcowireReportTemplate extends TemplateStock {
       <div class="row-end">&nbsp;</div>
     </div>
     </script>
+
+    <script id="figure_1110" type="text/template">
+    <div class="row topSpace bottomSpace">
+      <div class="col3">
+        <img class="scaling" src="{{src}}" alt="{{description}}" />
+      </div>
+      <div class="col1">  <!-- style="margin-top: parentHight - self.hight px" -->
+        <strong>Abbildung {{number}}: {{{description}}}</strong>
+      </div>
+      <div class="row-end">&nbsp;</div>
+    </div>
+    </script>
     """)
 
   addTemplateEntity (
@@ -215,7 +227,9 @@ class Text (txt: () => String) extends Entity {
         Map(
           "id" -> Json.toJson(id),
           "text" -> Json.toJson(txt()),
-          "newline" -> Json.toJson(newlineList)
+          "newline" -> Json.toJson(newlineList),
+          "splitable" -> Json.toJson(true),
+          "splitVar" -> Json.toJson("text")
         )
       )
     )
@@ -225,6 +239,24 @@ class Text (txt: () => String) extends Entity {
 class Figure (src: String, desc: String) extends Entity with FigureNumber {
   var appendPoint = "content"
   val templateId = "figure_1100"
+  def toJson = Json.toJson(
+    Map(
+      "templateId" -> Json.toJson(templateId),
+      "json" -> Json.toJson(
+        Map(
+          "id" -> Json.toJson(id),
+          "src" -> Json.toJson(src),
+          "description" -> Json.toJson(desc),
+          "number" -> Json.toJson(figureNumber)
+        )
+      )
+    )
+  ).toString
+}
+
+class Figure1110 (src: String, desc: String) extends Entity with FigureNumber {
+  var appendPoint = "content"
+  val templateId = "figure_1110"
   def toJson = Json.toJson(
     Map(
       "templateId" -> Json.toJson(templateId),
@@ -256,7 +288,7 @@ class TOCHead (heading: String) extends Entity {
   ).toString
 }
 
-class TOCMainSection (nr: String, title: String) extends Entity {
+class TOCMainSection (nr: String, title: String, inId: Int) extends Entity {
   var appendPoint = "content"
   val templateId = "toc_mainSection"
   def toJson = Json.toJson(
@@ -267,14 +299,14 @@ class TOCMainSection (nr: String, title: String) extends Entity {
           "id" -> Json.toJson(id),
           "nr" -> Json.toJson(nr),
           "title" -> Json.toJson(title),
-          "page" -> Json.toJson("~~")
+          "page" -> Json.toJson(s"@inId(${inId})")
         )
       )
     )
   ).toString
 }
 
-class TOCSection (nr: String, title: String) extends Entity {
+class TOCSection (nr: String, title: String, inId: Int) extends Entity {
   var appendPoint = "content"
   val templateId = "toc_section"
   def toJson = Json.toJson(
@@ -285,7 +317,7 @@ class TOCSection (nr: String, title: String) extends Entity {
           "id" -> Json.toJson(id),
           "nr" -> Json.toJson(nr),
           "title" -> Json.toJson(title),
-          "page" -> Json.toJson("~~")
+          "page" -> Json.toJson(s"@inId(${inId})")
         )
       )
     )
@@ -448,6 +480,12 @@ class EcowireReportEntityBinding extends academic.EntityBinding {
     registerReference(fig)
     return fig
   }
+  def figure1110 (src: String, desc: String)(implicit areal: Areal): Figure1110 = {
+    val fig = new Figure1110(src, desc)
+    fig.bindToAreal(areal)
+    registerReference(fig)
+    return fig
+  }
 }
 
 class EcowireTitlepageEntityBinding extends scaltex.buildtools.EntityBinding {
@@ -519,9 +557,9 @@ class TableOfContents (areals: (() => Areal)*)(implicit builder: Builder=null) e
     for (areal <- unpacked) {
       areal.companion.get.foreach { x =>
         x match {
-          case c: HeadingChapter => addToList(new TOCMainSection(c.sectionNumber, c.heading))
-          case s: HeadingSection => addToList(new TOCSection(s.sectionNumber, s.heading))
-          case s: HeadingSubSection => addToList(new TOCSection(s.sectionNumber, s.heading))
+          case c: HeadingChapter => addToList(new TOCMainSection(c.sectionNumber, c.heading, c.id))
+          case s: HeadingSection => addToList(new TOCSection(s.sectionNumber, s.heading, s.id))
+          case s: HeadingSubSection => addToList(new TOCSection(s.sectionNumber, s.heading, s.id))
           case _ => None
         }
       }
