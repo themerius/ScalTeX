@@ -241,9 +241,11 @@ var toc_seq = [
     entities: [
       {templateId: "toc_heading", json: {id: 100, heading: "Inhalt"}},
       {templateId: "toc_mainSection", json: {id: 101, nr: 1, title: "Titel",
-        page: 1}},
+        page: "@inId(0)"}},
       {templateId: "toc_section", json: {id: 102, nr: 1.1, title: "Untertitel",
-        page: 2}}
+        page: "@inId(2)"}},
+      {templateId: "toc_mainSection", json: {id: 103, nr: 2, title: "Second",
+        page: "@inId(6)"}}
     ]
   }
 ]
@@ -327,6 +329,7 @@ window.onload = function () {
 
   tocAreal.moveEntitiesToNewPages();
   tocAreal.destructConstructionAreas();
+  tocAreal.resolveTocPageNr([documentAreal]);
 };
 
 

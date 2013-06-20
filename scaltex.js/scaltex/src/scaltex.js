@@ -338,6 +338,8 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
         currentPageType = pageType;
       }
 
+      entity.pageNr = this.nextPageNr() - 1;
+
       actualPage.fill(appendPoint, entity.height());
       appendPoint = actualPage.appendPoints[appendPoint];
       entity.appendTo(appendPoint);
@@ -366,5 +368,28 @@ scaltex.Areal.prototype.destructConstructionAreas = function () {
     var elem = this.constructionAreas[key].element;
     elem.parentNode.removeChild(elem);
   }
+  return this;
+}
+
+scaltex.Areal.prototype.resolveTocPageNr = function (areals) {
+  var inId = function (id) {
+    return id
+  }
+  for (var idx in this.entities) {
+    var tocEntity = this.entities[idx];
+    if (tocEntity.entity.json.page) {
+      var searchedId = eval(tocEntity.entity.json.page.split("@")[1]);
+      // search in areal entities
+      for (var jdx in areals) {
+        var areal = areals[jdx];
+        for (var kdx in areal.entities) {
+          if (areal.entities[kdx].entity.json.id == searchedId) {
+            tocEntity.entity.json.page = areal.entities[kdx].entity.pageNr;
+          }
+        }
+      }
+    }
+  }
+  this.renderEntities();
   return this;
 }
