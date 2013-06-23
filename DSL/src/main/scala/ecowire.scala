@@ -108,9 +108,11 @@ object Summary extends Document {
   Das heißt, erst ab dem ersten Jahr ist mit Umsätzen zu rechnen.
   Bei einer stetig wachsenden Verkaufrate ist nach ca. 20 Monaten die
   Gewinnschwelle zu erwarten.
-  In Jahr fünf wird der Umsatz bei ca. 27.9 Millionen Euro und der
-  Gewinn bei ca. 12.7 Millionen Euro erwartet. Um die ersten 20 Monate
-  überleben zu können ist ein Investition von ca. 2.2 Millionen Euro nötig.
+  In Jahr fünf wird der Umsatz bei ${Finanzplan.umsatz} Millionen € und der
+  Gewinn bei ${Finanzplan.gewinn} Millionen € erwartet.
+  Um die ersten ${Finanzplan.investMon} Monate
+  überleben zu können ist ein Investition von ${Finanzplan.investSum}
+  Millionen € nötig.
 
   <br/><br/>
   """
@@ -119,11 +121,15 @@ object Summary extends Document {
 
 object Produkt extends Document {
 
+  newpage
+
   ++ § "Das Produkt: EcoPlug"                                          $ "prod"
 
 }
 
 object Marketing extends Document {
+
+  newpage
 
   var moegl_verkaeufe = 80000
 
@@ -269,15 +275,99 @@ object Marketing extends Document {
 
 object Geschaeftsmodell extends Document {
 
-  ++ § "Geschäftsmodell und Organisation"                              $ "gmodl"
+  newpage
 
   var umsatz_pro_verkauf = 360
   var gewinn_pro_verkauf = 180
   var kosten_pro_verkauf = 144
 
+  ++ § "Geschäftsmodell und Organisation"                              $ "gmodl"
+
+  ++ txt $"""
+    Die zwei Kerne unseres Geschäftsmodells sind auf Abbildung
+    ${Geschaeftsmodell.figGeschaeftsmodell.figureNumber} grafisch
+    veranschaulicht.
+
+    <br/><br/>
+
+    Ein Kern unseres Geschäftsmodells ist der Verkauf von unserer Hardware,
+    also die EcoPlug-Steckdosen mit der zugehörigen Basisstation, welche
+    die Steckdosen steuert. Diese Hardware ist wie im Kapitel
+    ${Marketing.markt.sectionNumber} schon beschrieben hauptsächlich für
+    Wohneinheiten gedacht, die eine Teilsanierung oder Komplettsanierung
+    vornehmen möchten, sowie für Neubauten. Für gewerbliche bzw. große Kunden
+    bieten wir Wartungsverträge für erweiterte Unterstützung und
+    Weiterentwicklungsgarantie.
+
+    <br/><br/>
+
+    Zudem gibt es noch die Software die auf den Steckdosen sowie auf
+    der Basisstation läuft als Open Source Software.
+    In der Software der Basisstation steckt die eigentliche Intelligenz
+    unseres Systems, denn dort kann das Monitoring, die Steuerung und
+    Analyse vorgenommen werden.
+    Warum haben wir uns für <em>Open Source</em> entschieden, obwohl
+    ein Großteil unseres Unternehmensschatzes in dieser Software liegt?
+    Der Hauptgrund ist der „Mitmacheffekt“ der durch die Community entsteht
+    und somit viele neue und innovative Ideen in unser Produkt einfließen
+    können---ohne dass wir alle selbst entwickeln müssen.
+    Man kann sich auch vorstellen, dass so unsere Software leichter für
+    Forschungsprojekte zugänglich ist und damit stetig weitere Innovationen
+    einfließen können.
+    <br/>
+    Zudem ist eine höhere Verbreitung zu erwarten, eben dadruch, dass es
+    öffentlich zugänglich ist. Es ermöglicht weiterhin auch den Kunden
+    eigene Individualisierungen vorzunehmen, aber auch entsprechende
+    Individualisierungsaufträge an unsere Entwicklungsabteilung zu vergeben.
+    Auch vorstellbar ist, dass ein Kunde unsere Produkte und Software um
+    eigene Funktionen erweitert und weiterverkauft---die Weiterentwicklungen
+    an der Software landen aber schlussenldich wieder in unseren Produkt.
+  """
+
+  ++ $ "figGeschaeftsmodell" figure1110(
+    src="Geschaeftsmodell.png",
+    desc="Geschäftsmodell veranschaulicht."
+  )
+
+
+  ++ §§ "Kostenstruktur"
+
+  ++ txt $"""
+    Auf Abbildung ${Geschaeftsmodell.figKostenTabelle.figureNumber}
+    ist eine Tabelle mit der Aufschlüsselung der Kostenstruktur
+    abgebildet.
+
+    <br/><br/>
+
+    Da sich unsere Verkäufe hauptsächlich an Wohneinheiten richten,
+    haben wir zur einfachereren Modellierung die Annahme getroffen,
+    dass die durchschnittliche Wohneinheit <em>3.5 Zimmer</em> hat
+    und dass ein Zimmer mindestens <em>drei Steckdosen sowie einen
+    Lampenanschluss<em> hat. Somit kommt man auf pro Verkauf auf
+    <em>14 Steckdosen + eine Zentrale</em>, wir nennen diese
+    Konstellation—unser durchschnittliches Verkaufspaket—
+    <b>14+1</b>.
+  """
+
+  ++ $ "figKostenTabelle" figure(
+    src="KostenTabelle.png",
+    desc="Kostenstruktur für EcoPlug."
+  )
+
+  def marge = 1.0 * umsatz_pro_verkauf / kosten_pro_verkauf * 100 - 100
+
+  ++ txt $"""
+    Für den durchschnittlichen 14+1 EcoPlug-Verkauf bedeutet das ein
+    Umsatz von ${umsatz_pro_verkauf} € und Kosten in Höhe von
+    ${kosten_pro_verkauf} €. Somit liegt die Marge pro
+    Verkauf des 14+1 Paketes bei ${marge}%.
+  """
+
 }
 
 object Team extends Document {
+
+  newpage
 
   ++ § "Team, Management und Personal"                                 $ "team"
 
@@ -285,11 +375,15 @@ object Team extends Document {
 
 object Fahrplan extends Document {
 
+  newpage
+
   ++ § "Realisierungsfahrplan"                                         $ "plan"
 
 }
 
 object ChancenRisiken extends Document {
+
+  newpage
 
   ++ § "Chancen und Risiken"                                           $ "chri"
 
