@@ -12,24 +12,15 @@ trait EcowireReportTemplate extends TemplateStock {
     <head>
     <meta charset="utf-8" />
     <title>$title</title>
-    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/reset.css" />
-    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/typo.css" />
-    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/grid.css" />
-    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/titlepage.css" />
-    <link rel="stylesheet" href="../../scaltex.js/academic_article_fraunhofer/css/toc.css" />
+    <link rel="stylesheet" href="ecowire_css/reset.css" />
+    <link rel="stylesheet" href="ecowire_css/typo.css" />
+    <link rel="stylesheet" href="ecowire_css/grid.css" />
+    <link rel="stylesheet" href="ecowire_css/titlepage.css" />
+    <link rel="stylesheet" href="ecowire_css/toc.css" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
     <script src="../../scaltex.js/scaltex/src/scaltex.js"></script>
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
-    <script>
-    // Mathjax Config
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ [':inlinemath:',':inlinem:'] ],
-        displayMath: [ [':math:',':math:'] ]}
-    });
-    </script>
   """
 
   footerTemplate = """

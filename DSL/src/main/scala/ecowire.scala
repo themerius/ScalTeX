@@ -119,15 +119,151 @@ object Summary extends Document {
 
 object Produkt extends Document {
 
-  ++ § "Das Produkt: EcoWire"                                          $ "prod"
+  ++ § "Das Produkt: EcoPlug"                                          $ "prod"
 
 }
 
 object Marketing extends Document {
 
+  var moegl_verkaeufe = 80000
+
   ++ § "Markt und Wettbewerb"                                          $ "markt"
 
-  var moegl_verkaeufe = 80000
+  ++ txt """
+    In diesem Kapitel wird geklärt, welche potentielle Marktgröße für
+    unser Produkt EcoPlug möglich ist, wie wir in diese Märkte vordringen
+    können und welche Konkurrenten mit ihren Vor- und Nachteilen zu
+    erwarten sind.
+    <br/><br/>
+    In erster Linie werden wir den deutschend Wohnungsmarkt für energetische
+    Voll- und Teilsanierungen sowie Neubauten ansprechen.
+    <br/><br/>
+  """
+
+  ++ §§ "Potenzieller Markt"
+
+  ++ txt $"""
+    Unsere drei Hauptmärkte sind:
+    <ul>
+      <li>Wohnungsbau neuer Wohneinheiten</li>
+      <li>Komplettsanierungen bestehender Wohneinheiten</li>
+      <li>Teilsanierungen bestehender Wohneinheiten</li>
+    </ul>
+
+    <br/>
+
+    Für das Jahr 2016 werden rund 246000 neue Wohnungen in neu errichteten
+    Wohngebäuden prognostiziert, wobei die jährliche Wachstumsrate
+    der fertiggestellten Wohnungen, wie
+    auf Abbilung ${Marketing.figWohnungswachstum.figureNumber} dargestellt,
+    bei ca. 7% liegt.[1]
+  """
+
+  ++ $ "figWohnungswachstum" figure(
+    src="http://www.baulinks.de/webplugin/2013/i/0571.gif",
+    desc="Wachstumsrate neuer Wohnungen.[1]"
+  )
+
+  ++ txt $"""
+    Laut der GdW sind in den Jahren 2005 bis 2010 insgesamt jährlich
+    0.91% der Wohneinheiten <em>komplett</em> energetisch saniert
+    worden und 5% der Wohneinheiten wurden jählrich <em>teilsaniert</em>.[2]
+
+    <br/><br/>
+
+    Der letzte Mikrozensus im April 2002 ergab, dass es zu diesem Zeitpunkt
+    knapp 39 Millionen Wohneinheiten in Deutschland gab.[3]
+
+    <br/><br/>
+
+    Aus dieser Faktenlage kann man eine ganz gute Abschätzung über die
+    Marktsituation erlangen.
+
+    <br/><br/>
+
+    <ul>
+      <li>Neue Wohneinheiten: rund 246,000</li>
+      <li>Komplettsanierungen: rund 351,000</li>
+      <li>Teilsanierungen: rund 1,950,000</li>
+    </ul>
+
+    <br/>
+
+    Also liegt die potentielle Marktgröße bei 2.55 Millionen Wohneinheiten,
+    wobei wir die Annahme treffen, dass nur 50% überhaupt Interesse an
+    einem Produkt wie EcoPlug haben und von diesen 50% entscheiden
+    sich auch 30% tatsächlich dafür ein solche Produkt einbauen zu wollen.
+    Da unsere Firma einen Marktanteil von 20% anpeilt, fallen
+    ca. ${moegl_verkaeufe} mögliche Produktverkäufe auf uns.
+
+    <br/><br/>
+
+    Der Markt bleibt beständig im Wachstum, da sich die Bundesregierung
+    das Ziel gesetzt hat die CO₂-Emissionen
+    zu reduzieren, d.h. bis
+    2050 soll der Energiebedarf um 80% gesenkt werden. Um dieses Ziel
+    zu erreichen, sollen aus politischem Willen heraus mindestens 2%
+    der Wohneinheiten jährlich saniert werden.
+    In dieser Hinsicht kann unser Produkt attraktiv sein, ein solches
+    ambitioniertes Ziel umzusetzen.[4]
+
+    <br/><br/>
+
+    Zudem sei erwähnt, dass Bürogebäude oder Industrieanlagen selbstverständlich
+    noch nicht hier miteinbezogen sind. Hier gäbe es mit Sicherheit auch
+    einen Markt, zumindest Bauherren moderner Bürogebäude achten auf intelligente
+    Gebäudetechnik.
+
+    <br/><br/>
+  """
+
+  ++ §§ "Marktdurchdringunsstrategie"
+
+  ++ txt $"""
+    Da unser Hauptmarkt auf dem der Wohungen ist, sind unsere Haupthandelspartner
+    jene Firmen, die energetische Sanierungen vornehmen bzw. Firmen die
+    neue Wohnungen planen und bauen.
+    Eine mögliche Strategie ist, sich diesen Firmen bekannt zu machen.
+    Also muss unser Marketing entsprechend mit diesen Firmen kontakt aufnehmen,
+    und ihnen hochwertiges Informaterial oder kostenlose Prototypen zur
+    Verfügung stellen und soweit möglich auch Weiterbildungsveranstaltungen,
+    in denen die Produkte vorgeführt werden oder gezeigt wird, wie diese
+    sachgemäß installiert werden.
+
+    <br/><br/>
+
+    Zudem könnten noch Elektrofachbetriebe miteinbezogen werden, da diese
+    auch die Möglichkeiten haben dem Endkunden das Produkt zu installieren
+    bzw. eine Teilsanierung vorzunehmen. Für diese Betriebe ist es sicherlich
+    auch noch ein interessantes neues Standbein, durch Verkäufe von EcoPlug
+    plus den Einbauauftrag des Kunden; sie können sich dadruch energetische
+    Teilsanierungen durchführen, was sonst nur anderen Handwerkern vorbehalten
+    blieb.
+    <br/><br/>
+  """
+
+  ++ §§ "Wettbewerber"
+
+  ++ txt $"""
+    Die Konkurrenz bietet momentan Steckdosen, die man in eine normale
+    Steckdose stecken kann, aber auch diese können auf ein Modell umsteigen,
+    dass EcoWire ähnlich ist. Hier eine Liste der aktuellen
+    bzw. wichtigsten Wettbewerber:
+
+    <br/><br/>
+
+    <ul>
+      <li>AVM: Fritz!Powerline 546E</li>
+      <li>RWE: SmartHome Power Control</li>
+      <li>Swisscom Smart Living: Quing</li>
+      <li>Arktis: iConnect SmartHome</li>
+      <li>Belkin: WeMo Home</li>
+      <li>iHomeLab Hochschule Luzern: uFeel</li>
+      <li>etc.</li>
+    </ul>
+
+    <br/><br/>
+  """
 
 }
 
@@ -160,6 +296,8 @@ object ChancenRisiken extends Document {
 }
 
 object Finanzplan extends Document {
+
+  newpage
 
   ++ § "Finanzplan und Finanzierung"                                   $ "finanz"
 
@@ -385,17 +523,27 @@ object Finanzplan extends Document {
 
 object Literatur extends Document {
 
+  newpage
+
   ++ § "Quellen"
 
   ++ txt $"""
     <table>
     <tr>
-      <td>[1]</td>
-      <td>Autor, URL</td>
+      <td>[1]&nbsp;</td>
+      <td>http://www.baulinks.de/webplugin/2013/0571.php4</td>
     </tr>
     <tr>
-      <td>[2]</td>
-      <td>Autor, URL</td>
+      <td>[2]&nbsp;</td>
+      <td>http://www.enbausa.de/finanzierung-beratung/aktuelles/artikel/wohnungswirtschaft-legt-energieprognose-2050-vor-3271.html</td>
+    </tr>
+    <tr>
+      <td>[3]&nbsp;</td>
+      <td>http://www.schader-stiftung.de/wohn_wandel/823.php</td>
+    </tr>
+    <tr>
+      <td>[4]&nbsp;</td>
+      <td>http://www.diw.de/documents/publikationen/73/diw_01.c.377834.de/11-34.pdf</td>
     </tr>
     </table>
   """
